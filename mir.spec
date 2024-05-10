@@ -24,7 +24,7 @@ BuildRequires:  python
 BuildRequires:  glm-devel
 BuildRequires:  pkgconfig(libglog)
 BuildRrquires:  pkgconfig(lttng-ust)
-BuildRewuires:  systemtap-devel
+BuildRequires:  systemtap-devel
 #BuildRequires:  gflags-devel
 BuildRequires:  python-pillow
 

@@ -23,7 +23,7 @@ BuildRequires:  boost-devel
 BuildRequires:  python
 BuildRequires:  glm-devel
 BuildRequires:  pkgconfig(libglog)
-BuildRrquires:  pkgconfig(lttng-ust)
+BuildRequires:  pkgconfig(lttng-ust)
 BuildRequires:  systemtap-devel
 #BuildRequires:  gflags-devel
 BuildRequires:  python-pillow

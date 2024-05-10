@@ -1,18 +1,13 @@
 # Force out of source build
 %undefine __cmake_in_source_build
 
-%ifnarch ppc64
-# Enable LTO on non-ppc64 (c.f. rhbz#1515934)
-%bcond_without lto
-%endif
-
 # Disable ctest run by default
 # They take a long time and are generally broken in the build environment
 %bcond_with run_tests
 
 Name:           mir
 Version:        2.16.4
-Release:        1%{?dist}
+Release:        1
 Summary:        Next generation display server
 
 # mircommon is LGPL-2.1-only/LGPL-3.0-only, everything else is GPL-2.0-only/GPL-3.0-only
@@ -21,15 +16,17 @@ URL:            https://mir-server.io/
 Source0:        https://github.com/MirServer/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  git-core
-BuildRequires:  gcc-c++
-BuildRequires:  cmake, ninja-build, doxygen, graphviz, lcov, gcovr
+BuildRequires:  cmake, ninja, doxygen, graphviz, lcov
+#gcovr
 BuildRequires:  /usr/bin/xsltproc
 BuildRequires:  boost-devel
-BuildRequires:  python3
+BuildRequires:  python
 BuildRequires:  glm-devel
-BuildRequires:  glog-devel, lttng-ust-devel, systemtap-sdt-devel
-BuildRequires:  gflags-devel
-BuildRequires:  python3-pillow
+BuildRequires:  pkgconfig(libglog)
+BuildRrquires:  pkgconfig(lttng-ust)
+BuildRewuires:  systemtap-devel
+#BuildRequires:  gflags-devel
+BuildRequires:  python-pillow
 
 # Everything detected via pkgconfig
 BuildRequires:  pkgconfig(egl)
@@ -61,16 +58,16 @@ BuildRequires:  pkgconfig(xcursor)
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  pkgconfig(xkbcommon-x11)
 BuildRequires:  pkgconfig(yaml-cpp)
-BuildRequires:  pkgconfig(wlcs)
+#BuildRequires:  pkgconfig(wlcs)
 
 # pkgconfig(egl) is now from glvnd, so we need to manually pull this in for the Mesa specific bits...
-BuildRequires:  mesa-libEGL-devel
+BuildRequires:  egl-devel
 
 # For some reason, this doesn't get pulled in automatically into the buildroot
-BuildRequires:  libatomic
+BuildRequires:  atomic-devel
 
 # For detecting the font for CMake
-BuildRequires:  gnu-free-sans-fonts
+#BuildRequires:  gnu-free-sans-fonts
 
 # For validating the desktop file for mir-demos
 BuildRequires:  %{_bindir}/desktop-file-validate
@@ -181,24 +178,15 @@ sed -e "s/-Werror//g" -i CMakeLists.txt
 
 
 %build
-%cmake	-GNinja %{?with_lto:-DMIR_LINK_TIME_OPTIMIZATION=ON} \
+%cmake	-GNinja -DMIR_LINK_TIME_OPTIMIZATION=ON} \
 	-DMIR_USE_PRECOMPILED_HEADERS=OFF \
 	-DCMAKE_INSTALL_LIBEXECDIR="usr/libexec/mir" \
 	-DMIR_PLATFORM="gbm-kms;x11;wayland;eglstream-kms"
 
-%cmake_build
+%make_build
 
 %install
-%cmake_install
-
-
-%check
-%if %{with run_tests}
-# The tests are somewhat fiddly, so let's just run them but not block on them...
-( %ctest ) || :
-%endif
-desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
-
+%make_install -C build
 
 %files devel
 %license COPYING.*

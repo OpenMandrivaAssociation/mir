@@ -58,7 +58,7 @@ BuildRequires:  pkgconfig(xcursor)
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  pkgconfig(xkbcommon-x11)
 BuildRequires:  pkgconfig(yaml-cpp)
-#BuildRequires:  pkgconfig(wlcs)
+BuildRequires:  pkgconfig(wlcs)
 
 # pkgconfig(egl) is now from glvnd, so we need to manually pull this in for the Mesa specific bits...
 BuildRequires:  egl-devel

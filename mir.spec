@@ -27,7 +27,7 @@ BuildRequires:  pkgconfig(lttng-ust)
 BuildRequires:  systemtap-devel
 BuildRequires:  pkgconfig(gflags)
 BuildRequires:  python-pillow
-
+BuildRequires:	pkgconfig(gmpxx)
 # Everything detected via pkgconfig
 BuildRequires:  pkgconfig(egl)
 BuildRequires:  pkgconfig(epoxy)

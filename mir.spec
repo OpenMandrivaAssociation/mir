@@ -178,7 +178,7 @@ sed -e "s/-Werror//g" -i CMakeLists.txt
 
 
 %build
-%cmake	-GNinja -DMIR_LINK_TIME_OPTIMIZATION=ON} \
+%cmake	DMIR_LINK_TIME_OPTIMIZATION=ON} \
 	-DMIR_USE_PRECOMPILED_HEADERS=OFF \
 	-DCMAKE_INSTALL_LIBEXECDIR="usr/libexec/mir" \
 	-DMIR_PLATFORM="gbm-kms;x11;wayland;eglstream-kms"

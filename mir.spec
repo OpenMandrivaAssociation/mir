@@ -6,7 +6,7 @@
 %bcond_with run_tests
 
 Name:           mir
-Version:        2.16.4
+Version:        2.17.0
 Release:        1
 Summary:        Next generation display server
 

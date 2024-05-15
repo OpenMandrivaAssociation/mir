@@ -200,7 +200,6 @@ sed -e "s/-Werror//g" -i CMakeLists.txt
 %doc README.md
 %{_libdir}/libmircore.so.*
 %{_libdir}/libmircommon.so.*
-%{_libdir}/libmircookie.so.*
 %{_libdir}/libmirplatform.so.*
 %dir %{_libdir}/mir
 

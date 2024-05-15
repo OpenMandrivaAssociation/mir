@@ -67,7 +67,7 @@ BuildRequires:  egl-devel
 BuildRequires:  atomic-devel
 
 # For detecting the font for CMake
-#BuildRequires:  gnu-free-sans-fonts
+BuildRequires:  fonts-ttf-freefont
 
 # For validating the desktop file for mir-demos
 BuildRequires:  %{_bindir}/desktop-file-validate
@@ -152,9 +152,9 @@ Summary:       Demonstration applications using Mir
 License:       GPL-2.0-only or GPL-3.0-only
 Requires:      %{name}-server-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:      hicolor-icon-theme
-Recommends:    xorg-x11-server-Xwayland
+Recommends:    	xwayland
 # For some of the demos
-Requires:      gnu-free-sans-fonts
+Requires:      fonts-ttf-freefont
 
 %description demos
 This package provides applications for demonstrating

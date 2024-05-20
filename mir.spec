@@ -93,6 +93,7 @@ Requires:      %{libname} = %{EVRD}
 Requires:      %{libservername} = %{EVRD}
 Requires:      %{liblomiriname} = %{EVRD}
 Requires:      %{name}-test-libs-static%{?_isa} = %{EVRD}
+Provides:	mir-devel = %{EVRD}
 
 %description -n %{devname}
 This package provides the development files to create
@@ -101,6 +102,7 @@ applications that can run on Mir.
 %package -n %{libname}
 Summary:       Common libraries for Mir
 License:       LGPL-2.1-only or LGPL-3.0-only
+Provides:	mir = %{EVRD}
 
 %description -n %{libname}
 This package provides the libraries common to be used

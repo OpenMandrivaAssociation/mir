@@ -5,6 +5,11 @@
 # They take a long time and are generally broken in the build environment
 %bcond_with run_tests
 
+%define libname %mklibname mir
+%define liblomiriname %mklibname mir-lomiri
+%define libservername %mklibname mir-server
+%define devname %mklibname -d mir
+
 Name:           mir
 Version:        2.17.0
 Release:        1
@@ -77,72 +82,59 @@ BuildRequires:  %{_bindir}/desktop-file-validate
 BuildRequires:  valgrind
 %endif
 
-
 %description
 Mir is a display server running on linux systems,
 with a focus on efficiency, robust operation,
 and a well-defined driver model.
 
-%package devel
+%package -n %{devname}
 Summary:       Development files for Mir
-Requires:      %{name}-common-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:      %{name}-server-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:      %{name}-lomiri-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:      %{name}-test-libs-static%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-# Documentation can no longer be built properly
-Obsoletes:     %{name}-doc < 2.15.0
+Requires:      %{libname} = %{EVRD}
+Requires:      %{libservername} = %{EVRD}
+Requires:      %{liblomiriname} = %{EVRD}
+Requires:      %{name}-test-libs-static%{?_isa} = %{EVRD}
+Provides:	mir-devel = %{EVRD}
 
-%description devel
+%description -n %{devname}
 This package provides the development files to create
 applications that can run on Mir.
 
-%package common-libs
+%package -n %{libname}
 Summary:       Common libraries for Mir
 License:       LGPL-2.1-only or LGPL-3.0-only
-# mirclient is gone...
-Obsoletes:     %{name}-client-libs < 2.6.0
-# debug extension for mirclient is gone...
-Obsoletes:     %{name}-client-libs-debugext < 1.6.0
-# mir utils are gone...
-Obsoletes:     %{name}-utils < 2.0.0
-# Ensure older mirclient doesn't mix in
-Conflicts:     %{name}-client-libs < 2.6.0
+Provides:	mir = %{EVRD}
 
-%description common-libs
+%description -n %{libname}
 This package provides the libraries common to be used
 by Mir clients or Mir servers.
 
-%package lomiri-libs
+%package -n %{liblomiriname}
 Summary:       Lomiri compatibility libraries for Mir
 License:       GPL-2.0-only or GPL-3.0-only
-Requires:      %{name}-common-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:      %{name}-server-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:      %{libname} = %{EVRD}
+Requires:      %{libservername} = %{EVRD}
 
-%description lomiri-libs
+%description -n %{liblomiriname}
 This package provides the libraries for Lomiri to use Mir
 as a Wayland compositor.
 
-%package server-libs
+%package -n %{libservername}
 Summary:       Server libraries for Mir
 License:       GPL-2.0-only or GPL-3.0-only
-Requires:      %{name}-common-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:      %{libname} = %{EVRD}
 
-%description server-libs
+%description -n %{libservername}
 This package provides the libraries for applications
 that use the Mir server.
 
 %package test-tools
 Summary:       Testing tools for Mir
 License:       GPL-2.0-only or GPL-3.0-only
-Requires:      %{name}-server-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:      %{libservername} = %{EVRD}
 Recommends:    %{name}-demos
 Recommends:    glmark2
-Recommends:    xorg-x11-server-Xwayland
+Recommends:    xwayland
 Requires:      wlcs
-# mir-perf-framework is no more...
-Obsoletes:     python3-mir-perf-framework < 2.6.0
-# Ensure mir-perf-framework is not installed
-Conflicts:     python3-mir-perf-framework < 2.6.0
 
 %description test-tools
 This package provides tools for testing Mir.
@@ -150,9 +142,9 @@ This package provides tools for testing Mir.
 %package demos
 Summary:       Demonstration applications using Mir
 License:       GPL-2.0-only or GPL-3.0-only
-Requires:      %{name}-server-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:      %{libservername} = %{EVRD}
 Requires:      hicolor-icon-theme
-Recommends:    	xwayland
+Recommends:    xwayland
 # For some of the demos
 Requires:      fonts-ttf-freefont
 
@@ -163,19 +155,17 @@ the capabilities of the Mir display server.
 %package test-libs-static
 Summary:       Testing framework library for Mir
 License:       GPL-2.0-only or GPL-3.0-only
-Requires:      %{name}-devel%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:      %{devname} = %{EVRD}
 
 %description test-libs-static
 This package provides the static library for building
 Mir unit and integration tests.
-
 
 %prep
 %autosetup -S git_am
 
 # Drop -Werror
 sed -e "s/-Werror//g" -i CMakeLists.txt
-
 
 %build
 %cmake	DMIR_LINK_TIME_OPTIMIZATION=ON} \
@@ -188,14 +178,14 @@ sed -e "s/-Werror//g" -i CMakeLists.txt
 %install
 %make_install -C build
 
-%files devel
+%files -n %{devname}
 %license COPYING.*
 %{_bindir}/mir_wayland_generator
 %{_libdir}/libmir*.so
 %{_libdir}/pkgconfig/mir*.pc
 %{_includedir}/mir*
 
-%files common-libs
+%files -n %{libname}
 %license COPYING.LGPL*
 %doc README.md
 %{_libdir}/libmircore.so.*
@@ -203,12 +193,12 @@ sed -e "s/-Werror//g" -i CMakeLists.txt
 %{_libdir}/libmirplatform.so.*
 %dir %{_libdir}/mir
 
-%files lomiri-libs
+%files -n %{liblomiriname}
 %license COPYING.GPL*
 %doc README.md
 %{_libdir}/libmiroil.so.*
 
-%files server-libs
+%files -n %{libservername}
 %license COPYING.GPL*
 %doc README.md
 %{_libdir}/libmiral.so.*

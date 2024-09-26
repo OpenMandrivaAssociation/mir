@@ -11,7 +11,7 @@
 %define devname %mklibname -d mir
 
 Name:           mir
-Version:        2.17.0
+Version:        2.18.0
 Release:        1
 Summary:        Next generation display server
 
@@ -161,6 +161,19 @@ Requires:      %{devname} = %{EVRD}
 This package provides the static library for building
 Mir unit and integration tests.
 
+%package kiosk
+Summary:       Kiosk Mir
+License:       GPL-2.0-only or GPL-3.0-only
+Requires:      %{libservername} = %{EVRD}
+Recommends:    %{name}-demos
+Recommends:    glmark2
+Recommends:    xwayland
+Requires:      wlcs
+
+%description kiosk
+This package provides tools for testing Mir.
+
+
 %prep
 %autosetup -S git_am
 
@@ -236,3 +249,7 @@ sed -e "s/-Werror//g" -i CMakeLists.txt
 %{_bindir}/miral-*
 %{_datadir}/applications/miral-shell.desktop
 %{_datadir}/icons/hicolor/scalable/apps/ubuntu-logo.svg
+
+%files kiosk
+%{_bindir}/mir-x11-kiosk
+%{_bindir}/mir-x11-kiosk-launch

@@ -237,6 +237,7 @@ sed -e "s/-Werror//g" -i CMakeLists.txt
 %dir %{_libdir}/mir/server-platform
 %{_libdir}/mir/server-platform/graphics-dummy.so
 %{_libdir}/mir/server-platform/input-stub.so
+%{_iconsdir}/hicolor/scalable/apps/spiral-logo.svg
 
 %files test-libs-static
 %license COPYING.GPL*

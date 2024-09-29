@@ -248,7 +248,6 @@ sed -e "s/-Werror//g" -i CMakeLists.txt
 %{_bindir}/mir_demo_*
 %{_bindir}/miral-*
 %{_datadir}/applications/miral-shell.desktop
-%{_datadir}/icons/hicolor/scalable/apps/ubuntu-logo.svg
 
 %files kiosk
 %{_bindir}/mir-x11-kiosk

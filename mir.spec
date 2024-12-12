@@ -12,7 +12,7 @@
 
 Name:           mir
 Version:        2.19.2
-Release:        3
+Release:        4
 Summary:        Next generation display server
 
 # mircommon is LGPL-2.1-only/LGPL-3.0-only, everything else is GPL-2.0-only/GPL-3.0-only

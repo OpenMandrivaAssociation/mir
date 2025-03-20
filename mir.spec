@@ -242,6 +242,7 @@ sed -e "s/-Werror//g" -i CMakeLists.txt
 %files test-libs-static
 %license COPYING.GPL*
 %{_libdir}/libmir-test-assist.a
+%{_libdir}/libmir-test-assist-internal.a
 
 %files demos
 %license COPYING.GPL*

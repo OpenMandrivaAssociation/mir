@@ -11,7 +11,7 @@
 %define devname %mklibname -d mir
 
 Name:           mir
-Version:        2.19.3
+Version:        2.20.1
 Release:        1
 Summary:        Next generation display server
 
@@ -242,6 +242,7 @@ sed -e "s/-Werror//g" -i CMakeLists.txt
 %files test-libs-static
 %license COPYING.GPL*
 %{_libdir}/libmir-test-assist.a
+%{_libdir}/libmir-test-assist-internal.a
 
 %files demos
 %license COPYING.GPL*

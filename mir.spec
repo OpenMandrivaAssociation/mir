@@ -50,6 +50,7 @@ BuildRequires:  pkgconfig(libinput)
 BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(libxml++-2.6)
 BuildRequires:  pkgconfig(nettle)
+BuildRequires:	pkgconfig(pixman-1)
 BuildRequires:  pkgconfig(umockdev-1.0) >= 0.6
 BuildRequires:  pkgconfig(uuid)
 BuildRequires:  pkgconfig(wayland-eglstream)

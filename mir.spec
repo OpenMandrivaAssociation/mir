@@ -1,6 +1,3 @@
-# Force out of source build
-%undefine __cmake_in_source_build
-
 # Disable ctest run by default
 # They take a long time and are generally broken in the build environment
 %bcond_with run_tests
@@ -21,9 +18,9 @@ URL:            https://mir-server.io/
 Source0:        https://github.com/MirServer/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  git-core
-BuildRequires:  cmake, ninja, doxygen, graphviz, lcov
+BuildRequires:  doxygen graphviz lcov
 #gcovr
-BuildRequires:  /usr/bin/xsltproc
+BuildRequires:  xsltproc
 BuildRequires:  boost-devel
 BuildRequires:  python
 BuildRequires:  glm-devel
@@ -76,12 +73,18 @@ BuildRequires:  atomic-devel
 BuildRequires:  fonts-ttf-freefont
 
 # For validating the desktop file for mir-demos
-BuildRequires:  %{_bindir}/desktop-file-validate
+BuildRequires:  desktop-file-utils
 
 # Add architectures as verified to work
-%ifarch %{ix86} x86_64 %{arm} aarch64
+%ifarch %{ix86} %{x86_64} %{arm} %{aarch64}
 BuildRequires:  valgrind
 %endif
+
+BuildSystem:	cmake
+BuildOption:	-DMIR_LINK_TIME_OPTIMIZATION:BOOL=ON
+BuildOption:	-DMIR_USE_PRECOMPILED_HEADERS:BOOL=OFF
+BuildOption:	-DCMAKE_INSTALL_LIBEXECDIR="usr/libexec/mir"
+BuildOption:	-DMIR_PLATFORM="gbm-kms;x11;wayland;eglstream-kms"
 
 %description
 Mir is a display server running on linux systems,
@@ -175,22 +178,9 @@ Requires:      wlcs
 This package provides tools for testing Mir.
 
 
-%prep
-%autosetup -S git_am
-
+%prep -a
 # Drop -Werror
 sed -e "s/-Werror//g" -i CMakeLists.txt
-
-%build
-%cmake	DMIR_LINK_TIME_OPTIMIZATION=ON} \
-	-DMIR_USE_PRECOMPILED_HEADERS=OFF \
-	-DCMAKE_INSTALL_LIBEXECDIR="usr/libexec/mir" \
-	-DMIR_PLATFORM="gbm-kms;x11;wayland;eglstream-kms"
-
-%make_build
-
-%install
-%make_install -C build
 
 %files -n %{devname}
 %license COPYING.*

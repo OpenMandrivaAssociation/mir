@@ -24,6 +24,7 @@ BuildRequires:  xsltproc
 BuildRequires:  boost-devel
 BuildRequires:  python
 BuildRequires:  glm-devel
+BuildRequires:  pkgconfig(libdisplay-info)
 BuildRequires:  pkgconfig(libglog)
 BuildRequires:  pkgconfig(lttng-ust)
 BuildRequires:  systemtap-devel

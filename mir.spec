@@ -181,6 +181,8 @@ This package provides tools for testing Mir.
 %prep -a
 # Drop -Werror
 sed -e "s/-Werror//g" -i CMakeLists.txt
+# Fix for boost 1.89
+sed -i -e 's/\<system\>//' -e 's/  */ /g' CMakeLists.txt
 
 %files -n %{devname}
 %license COPYING.*

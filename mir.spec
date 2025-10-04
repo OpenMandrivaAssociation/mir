@@ -16,6 +16,8 @@ Summary:        Next generation display server
 License:        (GPL-2.0-only or GPL-3.0-only) and (LGPL-2.1-only or LGPL-3.0-only)
 URL:            https://mir-server.io/
 Source0:        https://github.com/MirServer/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
+# remove boost system
+Patch0:         https://github.com/canonical/mir/commit/3fb18c03c58b7131ec8cc756628d879c5a1d3e54.patch
 
 BuildRequires:  git-core
 BuildRequires:  doxygen graphviz lcov
@@ -182,8 +184,6 @@ This package provides tools for testing Mir.
 %prep -a
 # Drop -Werror
 sed -e "s/-Werror//g" -i CMakeLists.txt
-# Fix for boost 1.89
-sed -i -e 's/\<system\>//' -e 's/  */ /g' CMakeLists.txt
 
 %files -n %{devname}
 %license COPYING.*

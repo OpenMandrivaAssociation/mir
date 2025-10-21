@@ -8,7 +8,7 @@
 %define devname %mklibname -d mir
 
 Name:           mir
-Version:        2.22.2
+Version:        2.23.0
 Release:        1
 Summary:        Next generation display server
 
@@ -16,8 +16,6 @@ Summary:        Next generation display server
 License:        (GPL-2.0-only or GPL-3.0-only) and (LGPL-2.1-only or LGPL-3.0-only)
 URL:            https://mir-server.io/
 Source0:        https://github.com/MirServer/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
-# remove boost system
-Patch0:         https://github.com/canonical/mir/commit/3fb18c03c58b7131ec8cc756628d879c5a1d3e54.patch
 
 BuildRequires:  git-core
 BuildRequires:  doxygen graphviz lcov

@@ -23,6 +23,7 @@ BuildRequires:  doxygen graphviz lcov
 BuildRequires:  xsltproc
 BuildRequires:  boost-devel
 BuildRequires:  python
+BuildRequires:  python-dbusmock
 BuildRequires:  glm-devel
 BuildRequires:  pkgconfig(libdisplay-info)
 BuildRequires:  pkgconfig(libglog)

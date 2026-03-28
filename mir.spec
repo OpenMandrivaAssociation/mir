@@ -47,7 +47,7 @@ BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(libevdev)
 BuildRequires:  pkgconfig(libinput)
 BuildRequires:  pkgconfig(libudev)
-BuildRequires:  pkgconfig(libxml++-2.6)
+BuildRequires:  pkgconfig(libxml++-5.0)
 BuildRequires:  pkgconfig(nettle)
 BuildRequires:	pkgconfig(pixman-1)
 BuildRequires:  pkgconfig(umockdev-1.0) >= 0.6
@@ -88,6 +88,9 @@ BuildOption:	-DMIR_LINK_TIME_OPTIMIZATION:BOOL=ON
 BuildOption:	-DMIR_USE_PRECOMPILED_HEADERS:BOOL=OFF
 BuildOption:	-DCMAKE_INSTALL_LIBEXECDIR="usr/libexec/mir"
 BuildOption:	-DMIR_PLATFORM="gbm-kms;x11;wayland;eglstream-kms"
+
+%patchlist
+mir-2.25.2-libxml++-5.0.patch
 
 %description
 Mir is a display server running on linux systems,

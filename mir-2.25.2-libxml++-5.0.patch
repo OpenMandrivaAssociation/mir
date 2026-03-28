@@ -1,0 +1,39 @@
+diff -up mir-2.25.2/src/wayland/generator/CMakeLists.txt.omv~ mir-2.25.2/src/wayland/generator/CMakeLists.txt
+--- mir-2.25.2/src/wayland/generator/CMakeLists.txt.omv~	2026-03-28 01:37:55.468295674 +0100
++++ mir-2.25.2/src/wayland/generator/CMakeLists.txt	2026-03-28 01:38:01.483400359 +0100
+@@ -1,4 +1,4 @@
+-pkg_check_modules(XMLPP libxml++-2.6 REQUIRED IMPORTED_TARGET)
++pkg_check_modules(XMLPP libxml++-5.0 REQUIRED IMPORTED_TARGET)
+ 
+ add_executable(mir_wayland_generator
+   wrapper_generator.cpp
+diff -up mir-2.25.2/src/wayland/generator/interface.cpp.omv~ mir-2.25.2/src/wayland/generator/interface.cpp
+--- mir-2.25.2/src/wayland/generator/interface.cpp.omv~	2026-03-28 01:39:00.622104067 +0100
++++ mir-2.25.2/src/wayland/generator/interface.cpp	2026-03-28 01:39:18.374588361 +0100
+@@ -480,7 +480,7 @@ std::vector<Request> Interface::get_requ
+     std::vector<Request> requests;
+     for (auto method_node : node.get_children("request"))
+     {
+-        auto elem = dynamic_cast<xmlpp::Element*>(method_node);
++        auto elem = dynamic_cast<const xmlpp::Element*>(method_node);
+         requests.emplace_back(Request{std::ref(*elem), generated_name});
+     }
+     return requests;
+@@ -492,7 +492,7 @@ std::vector<Event> Interface::get_events
+     int opcode = 0;
+     for (auto method_node : node.get_children("event"))
+     {
+-        auto elem = dynamic_cast<xmlpp::Element*>(method_node);
++        auto elem = dynamic_cast<const xmlpp::Element*>(method_node);
+         events.emplace_back(Event{std::ref(*elem), generated_name, opcode});
+         opcode++;
+     }
+@@ -504,7 +504,7 @@ std::vector<Enum> Interface::get_enums(x
+     std::vector<Enum> enums;
+     for (auto method_node : node.get_children("enum"))
+     {
+-        auto elem = dynamic_cast<xmlpp::Element*>(method_node);
++        auto elem = dynamic_cast<const xmlpp::Element*>(method_node);
+         enums.emplace_back(Enum{std::ref(*elem), generated_name});
+     }
+     return enums;

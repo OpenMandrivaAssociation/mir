@@ -87,6 +87,7 @@ BuildRequires:  valgrind
 BuildSystem:	cmake
 BuildOption:	-DMIR_LINK_TIME_OPTIMIZATION:BOOL=ON
 BuildOption:	-DMIR_USE_PRECOMPILED_HEADERS:BOOL=OFF
+BuildOption:  -DCMAKE_REQUIRED_LIBRARIES=dl
 BuildOption:	-DCMAKE_INSTALL_LIBEXECDIR="usr/libexec/mir"
 BuildOption:	-DMIR_PLATFORM="gbm-kms;x11;wayland;eglstream-kms"
 

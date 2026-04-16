@@ -19,6 +19,7 @@ Source0:        https://github.com/MirServer/%{name}/releases/download/v%{versio
 
 BuildRequires:  git-core
 BuildRequires:  doxygen graphviz lcov
+BuildRequires:  cargo
 #gcovr
 BuildRequires:  xsltproc
 BuildRequires:  boost-devel

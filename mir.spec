@@ -8,7 +8,7 @@
 %define devname %mklibname -d mir
 
 Name:           mir
-Version:        2.26.0
+Version:        2.28.0
 Release:        1
 Summary:        Next generation display server
 

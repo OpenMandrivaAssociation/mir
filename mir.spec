@@ -190,6 +190,9 @@ This package provides tools for testing Mir.
 # Drop -Werror
 sed -e "s/-Werror//g" -i CMakeLists.txt
 
+%build -a
+export LIBS="-ldl"
+
 %files -n %{devname}
 %license COPYING.*
 %{_bindir}/mir_wayland_generator

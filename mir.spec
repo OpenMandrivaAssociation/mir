@@ -8,8 +8,8 @@
 %define devname %mklibname -d mir
 
 Name:           mir
-Version:        2.25.2
-Release:        3
+Version:        2.28.0
+Release:        1
 Summary:        Next generation display server
 
 # mircommon is LGPL-2.1-only/LGPL-3.0-only, everything else is GPL-2.0-only/GPL-3.0-only
@@ -90,7 +90,7 @@ BuildOption:	-DCMAKE_INSTALL_LIBEXECDIR="usr/libexec/mir"
 BuildOption:	-DMIR_PLATFORM="gbm-kms;x11;wayland;eglstream-kms"
 
 %patchlist
-mir-2.25.2-libxml++-5.0.patch
+# dropped (no longer applies): mir-2.28.0-libxml++-5.0.patch
 
 %description
 Mir is a display server running on linux systems,

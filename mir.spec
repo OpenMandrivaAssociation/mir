@@ -91,6 +91,8 @@ BuildOption:	-DMIR_LINK_TIME_OPTIMIZATION:BOOL=ON
 BuildOption:	-DMIR_USE_PRECOMPILED_HEADERS:BOOL=OFF
 BuildOption:	-DCMAKE_INSTALL_LIBEXECDIR="usr/libexec/mir"
 BuildOption:	-DMIR_PLATFORM="gbm-kms;x11;wayland;eglstream-kms"
+# evdev-rs pulls crates.io (no network in mock)
+BuildOption:	-DMIR_ENABLE_RUST=OFF
 
 %patchlist
 # dropped (no longer applies): mir-2.28.0-libxml++-5.0.patch

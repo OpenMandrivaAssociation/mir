@@ -189,9 +189,9 @@ This package provides tools for testing Mir.
 %prep -a
 # Drop -Werror
 sed -e "s/-Werror//g" -i CMakeLists.txt
-# check_cxx_symbol_exists(dlsym) does not link -ldl; clang/lld then
-# reports both dlvsym and dlsym as missing.
-sed -i '/list(APPEND CMAKE_REQUIRED_DEFINITIONS -D_GNU_SOURCE)/a list(APPEND CMAKE_REQUIRED_LIBRARIES dl)' \
+# check_cxx_symbol_exists(dlsym/dlvsym) fails under clang+LTO even with
+# -ldl (try_compile is not a missing-symbol). glibc provides both.
+sed -i 's/check_cxx_symbol_exists("dlvsym"/set(HAS_DLVSYM TRUE)\n#check_cxx_symbol_exists("dlvsym"/;s/check_cxx_symbol_exists("dlsym"/set(HAS_DLSYM TRUE)\n#check_cxx_symbol_exists("dlsym"/' \
 	src/common/sharedlibrary/CMakeLists.txt
 
 %files -n %{devname}

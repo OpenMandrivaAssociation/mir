@@ -193,6 +193,10 @@ sed -e "s/-Werror//g" -i CMakeLists.txt
 # -ldl (try_compile is not a missing-symbol). glibc provides both.
 sed -i 's/check_cxx_symbol_exists("dlvsym"/set(HAS_DLVSYM TRUE)\n#check_cxx_symbol_exists("dlvsym"/;s/check_cxx_symbol_exists("dlsym"/set(HAS_DLSYM TRUE)\n#check_cxx_symbol_exists("dlsym"/' \
 	src/common/sharedlibrary/CMakeLists.txt
+# cooker has libxml++-5.0, not 2.6; 5.0 getters return const Element*
+sed -i 's/libxml++-2.6/libxml++-5.0/' src/wayland/generator/CMakeLists.txt
+sed -i 's/dynamic_cast<xmlpp::Element\*>/dynamic_cast<const xmlpp::Element*>/g' \
+	src/wayland/generator/*.cpp
 
 %files -n %{devname}
 %license COPYING.*

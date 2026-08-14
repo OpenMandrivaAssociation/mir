@@ -189,6 +189,10 @@ This package provides tools for testing Mir.
 %prep -a
 # Drop -Werror
 sed -e "s/-Werror//g" -i CMakeLists.txt
+# check_cxx_symbol_exists(dlsym) does not link -ldl; clang/lld then
+# reports both dlvsym and dlsym as missing.
+sed -i '/list(APPEND CMAKE_REQUIRED_DEFINITIONS -D_GNU_SOURCE)/a list(APPEND CMAKE_REQUIRED_LIBRARIES dl)' \
+	src/common/sharedlibrary/CMakeLists.txt
 
 %files -n %{devname}
 %license COPYING.*

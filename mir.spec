@@ -22,6 +22,8 @@ BuildRequires:  doxygen graphviz lcov
 #gcovr
 BuildRequires:  xsltproc
 BuildRequires:  boost-devel
+BuildRequires:  cargo
+BuildRequires:  rust
 BuildRequires:  python
 BuildRequires:  python-dbusmock
 BuildRequires:  glm-devel

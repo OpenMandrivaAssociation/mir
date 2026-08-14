@@ -18,6 +18,7 @@ URL:            https://mir-server.io/
 Source0:        https://github.com/MirServer/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  git-core
+BuildRequires:  clang-tools
 BuildRequires:  doxygen graphviz lcov
 #gcovr
 BuildRequires:  xsltproc
